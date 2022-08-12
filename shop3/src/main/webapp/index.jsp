@@ -43,5 +43,16 @@
 	
 	%>
 	
+	<%
+	if(session.getAttribute("user").equals("Customer")){
+	
+	%>
+	
+	<a href="<%=request.getContextPath()%>/logout.jsp"> 로그아웃 </a>
+	<a href="<%=request.getContextPath()%>/admin/adminOrderList.jsp">주문목록</a>
+	
+	
+	
+	
 </body>
 </html>
