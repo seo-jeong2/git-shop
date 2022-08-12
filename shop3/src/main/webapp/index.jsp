@@ -32,6 +32,7 @@
 	%>
 	<a href="<%=request.getContextPath()%>/logout.jsp"> 로그아웃 </a>
 	<a href="<%=request.getContextPath()%>/remove<%=session.getAttribute("user")%>Form.jsp"> 회원탈퇴 </a>
+	<br>
 	<a href="<%=request.getContextPath()%>/employeeList.jsp">사원관리</a>
 	<a href="<%=request.getContextPath()%>/admin/adminGoodsList.jsp">상품관리</a>
 	<a href="<%=request.getContextPath()%>/admin/adminOrderList.jsp">주문관리</a>
@@ -47,11 +48,14 @@
 	if(session.getAttribute("user").equals("Customer")){
 	
 	%>
-	
+
 	<a href="<%=request.getContextPath()%>/logout.jsp"> 로그아웃 </a>
-	<a href="<%=request.getContextPath()%>/admin/adminOrderList.jsp">주문목록</a>
+	<a href="<%=request.getContextPath()%>/customerOrderList.jsp">주문목록</a>
+
+	<%
+	}
 	
-	
+	%>
 	
 	
 </body>

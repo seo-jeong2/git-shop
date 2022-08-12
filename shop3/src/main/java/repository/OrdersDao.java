@@ -61,7 +61,7 @@ public class OrdersDao {
       
       try {
 			stmt = conn.prepareStatement(sql);
-			stmt.set(1,
+			stmt.
 			rs = stmt.executeQuery();
       
 }
