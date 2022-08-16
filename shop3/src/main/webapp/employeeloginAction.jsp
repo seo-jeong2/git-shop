@@ -31,7 +31,7 @@
         	
          
         	if(login !=null) {  // LOGIN 성공
-        		System.out.println("성공");		
+        		System.out.println("로그인 성공");		
         		session.setAttribute("user", "Employee"); 
         		session.setAttribute("id", login.getEmployeeId());
         		session.setAttribute("name", login.getEmployeeName());
@@ -41,6 +41,6 @@
         		
         		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
         		
-        		System.out.println("실패");		
+        		System.out.println("로그인 실패");		
         	}
     %>

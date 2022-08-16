@@ -13,7 +13,9 @@ public class GoodsService {
 	private GoodsImgDao goodsImgDao;
 	private GoodsDao goodsDao;	
 		
-	 // 고객 상품리스트페이지를 호출하는 서비스
+	
+	/*
+	// 고객 상품리스트페이지를 호출하는 서비스
 	   public List<Map<String, Object>> getcustomerGoodsListByPage(int rowPerPage, int currentPage) {
 	      
 	       List<Map<String, Object>> list = null;
@@ -22,7 +24,7 @@ public class GoodsService {
 	            
 	      return null;
 	   }
-	
+	*/
 	
 	public int addGoods(Goods goods, GoodsImg goodsImg) {
 		int goodsNo = 0;
@@ -187,18 +189,14 @@ public class GoodsService {
 		
 		
 	}
-	
-	
-	
-	
-	
+
 
 	public List<Goods> getGoodsListByPage(int rowPerPage, int currentPage) {
 
 		Connection conn = null;
 		int beginRow = (currentPage - 1) * rowPerPage;
 
-		List<Goods> list = null;
+		List<Goods> list = new ArrayList<Goods>();
 		this.goodsDao = new GoodsDao();
 
 		try {
@@ -221,38 +219,6 @@ public class GoodsService {
 		return list;
 
 	}
-	public int getlastPage(int rowPerPage) {
-		Connection conn = null;
-		
-		try {
-			conn = new DBUtil().getConnection();
-			conn.setAutoCommit(false); //자동커밋막아주기
-			
-			rowPerPage = goodsDao.lastPage(conn);
-			System.out.println(rowPerPage + " <-- rowPerPage");
-			
-		if(rowPerPage == 0) {
-				throw new Exception();
-			}
-			conn.commit();
-			
-		}catch(Exception e){
-			e.printStackTrace();
-			try {
-				conn.rollback();
-			}catch(SQLException s) {
-				s.printStackTrace();
-			}
-		}finally {
-			try {
-				conn.close();
-			}catch(SQLException s) {
-				s.printStackTrace();
-		}
-		
-		
-	}
-		return rowPerPage;
-	}
-
+	
+	
 }

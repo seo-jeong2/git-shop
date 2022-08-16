@@ -6,7 +6,8 @@
       
 <%
 	if(session.getAttribute("user") == null) { 
-		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");		
+		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
+		System.out.println("로그인하세요");
 		return;
 	} 		
 %>    
@@ -50,6 +51,7 @@
 	%>
 
 	<a href="<%=request.getContextPath()%>/logout.jsp"> 로그아웃 </a>
+	<a href="<%=request.getContextPath()%>/customerGoodsList.jsp">상품목록</a>
 	<a href="<%=request.getContextPath()%>/customerOrderList.jsp">주문목록</a>
 
 	<%

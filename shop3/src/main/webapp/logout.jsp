@@ -4,5 +4,7 @@
 <%
 	session.invalidate();
 	response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
+	
+	System.out.println("로그아웃 성공");
 
 %>

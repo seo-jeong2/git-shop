@@ -9,13 +9,14 @@
  <%
  request.setCharacterEncoding("utf-8");
 
-/*	if (session.getAttribute("user") == null && session.getAttribute("active").equals("Y")) {
+ //관리자로 로그인
+ if (session.getAttribute("user") == null ) {
 		response.sendRedirect(request.getContextPath() + "/index.jsp");
-		System.out.println("없음");
+		System.out.println("관리자로 로그인하세요");
 		return;
 	}	
-*/
-	// 페이징값
+	
+ //페이징
 	int currentPage = 1;
 	if (request.getParameter("currentPage") != null) {
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
@@ -35,16 +36,17 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <!-- 메뉴 -->
+	
 	<ul>
 		<li><a href="<%=request.getContextPath()%>/employeeList.jsp">사원관리</a></li>
 		<li><a href = "<%=request.getContextPath()%>/admin/adminGoodsList.jsp">상품관리</a></li>
-		<li><a href = "<%=request.getContextPath()%>/admin/adminOrdersList.jsp">주문관리</a></li>
+		<li><a href = "<%=request.getContextPath()%>/admin/adminOrderList.jsp">주문관리</a></li>
 		<li><a href = "<%=request.getContextPath()%>/admin/adminCustomerList.jsp">고객관리</a></li>
 		<li><a href = "<%=request.getContextPath()%>/admin/adminNoticeList.jsp">공지관리</a></li>
 	</ul>
-	</div>
+	
 
-	<h1>사원관리</h1>
+	<h2>사원 관리</h2>
 	<a href="<%=request.getContextPath()%>/addEmployee.jsp">사원등록</a>
 	
 	<body>	
@@ -108,9 +110,10 @@
 			%>
 		
 		</div>
+		<a href="<%=request.getContextPath()%>/index.jsp">처음으로</a>
 	
 </body>
 </html>
 
-<body>
+
 	

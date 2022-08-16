@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <%
-//세션 유효성 검정 코드
+
 
 %>    
 <!DOCTYPE html>
@@ -22,9 +22,8 @@
 </ul>
 </div>
 <!-- 메인내용 -->
-<h1>사원관리</h1>
 <div>
-	<!-- 사원목록 , active값 수정 -->
+
 </div>
 </body>
 </html>
