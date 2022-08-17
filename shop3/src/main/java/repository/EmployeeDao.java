@@ -175,33 +175,30 @@ public class EmployeeDao {
 	
 	// 리스트
 	
-public int EmployeelastPage(Connection conn) throws SQLException {
-		
+	public int EmployeelastPage(Connection conn) throws SQLException {
+		int totalCount = 0;
 		String sql ="SELECT COUNT(*) FROM employee";
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		int totalCount = 0;
 		
+		stmt = conn.prepareStatement(sql); 
+		rs = stmt.executeQuery();
 		
-		try {
-			stmt = conn.prepareStatement(sql);
-			rs = stmt.executeQuery();
-			
-			if(rs.next()) {
-				totalCount = rs.getInt("COUNT(*)");
-			}
-			
-			System.out.print(totalCount +"Employee의 dao");
-			
-		}finally {
-			
-			if(rs!=null) {rs.close();}
-			if(rs!=null) {stmt.close();}
+		if(rs.next()) {
+			totalCount= rs.getInt("COUNT(*)"); 
+		}
+		if(rs != null) { 
+			rs.close();
+		}
+		if(stmt != null) {
+			stmt.close();
 		}
 		
 		return totalCount;
-		
 	}
+		
+		
+
 	
 	
 
@@ -209,23 +206,8 @@ public int EmployeelastPage(Connection conn) throws SQLException {
 	// 그 테이블의 값들을 전부 가져와야함
 	public ArrayList<Employee> SelectEmployeeList(Connection conn, int rowPerPage, int beginRow) throws SQLException  {
 		ArrayList<Employee> list = new ArrayList<Employee>();
-		
-		/*
-		 SELECT 
-		 employee_id,
-		 employee_pass,
-		 employee_name,
-		 update_date,
-		 create_date,
-		 active
-		 FROM employee
-		 ORDER BY crate_date DESC LIMIT ?, ?;
-		 */
-		
-		
-	
+			
 
-		
 		String sql =" SELECT \r\n"
 				+ "		 employee_id,\r\n"
 				+ "		 employee_pass,\r\n"
@@ -256,7 +238,7 @@ public int EmployeelastPage(Connection conn) throws SQLException {
 				employee.setActive(rs.getString("active"));
 				list.add(employee);
 				
-				System.out.println(list+ "<- Employee의 list<-");
+				System.out.println(list+ "사원목록");
 			}
 			
 		} finally {

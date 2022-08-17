@@ -21,13 +21,15 @@
 	if (request.getParameter("currentPage") != null) {
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	}
-	final int ROW_PER_PAGE = 10;
+	
+	final int rowPerPage= 10;
 	
 	EmployeeService employeeService = new EmployeeService();
 	List<Employee> list = new ArrayList<Employee>();
-	list = employeeService.getEmployeeList(ROW_PER_PAGE, currentPage);
+	list = employeeService.getEmployeeList(rowPerPage, currentPage);
 	
-	
+	int lastPage = employeeService.getEmployeeLastPage(rowPerPage);	
+
 	
   %>
 <!DOCTYPE html>
@@ -103,12 +105,15 @@
 				if(currentPage > 1) {
 			%>	
 					<a href="<%=request.getContextPath()%>/employeeList.jsp?currentPage=<%=currentPage-1%>" class="btn btn-dark">이전</a>
-			
 			<%
 			
 				}
+				if(currentPage < lastPage) {
+			%>	
+					<a href="<%=request.getContextPath()%>/employeeList.jsp?currentPage=<%=currentPage+1%>" class="btn btn-dark">다음</a>
+			<%
+				}
 			%>
-		
 		</div>
 		<a href="<%=request.getContextPath()%>/index.jsp">처음으로</a>
 	

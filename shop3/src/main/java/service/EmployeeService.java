@@ -153,10 +153,6 @@ public class EmployeeService {
 	
 	public ArrayList<Employee> getEmployeeList(int rowPerPage, int currentPage) {
 
-		// int rowPerPage, int currentPage 받아서
-		// 여기서 beginRow를 가져오래
-		
-	
 		ArrayList<Employee> list = new ArrayList<Employee>();
 		Connection conn = null;
 		int beginRow = (currentPage -1 ) * rowPerPage;
@@ -169,7 +165,7 @@ public class EmployeeService {
 			
 			list = employeeDao.SelectEmployeeList(conn, rowPerPage, beginRow);
 			
-			System.out.println(list +"<-EmployeeService의 list");
+			System.out.println(list +"사원목록");
 			
 			if(list==null) {
 				throw new Exception();
@@ -198,5 +194,43 @@ public class EmployeeService {
 		
 	}
 	
+	public int getEmployeeLastPage(int rowPerPage) {
+		
+		Connection conn = null;
+		
+		try {
+			conn = new DBUtil().getConnection();
+			conn.setAutoCommit(false); 
+			 
+			EmployeeDao employeeDao = new EmployeeDao(); 
+			rowPerPage = employeeDao.EmployeelastPage(conn);
+			System.out.print(rowPerPage +" : rowPerPage");
+		
+			conn.commit();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+					
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return rowPerPage;	
+		
+		
+	}
 
 }

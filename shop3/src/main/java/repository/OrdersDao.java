@@ -81,13 +81,15 @@ public class OrdersDao {
    }
    
    // 5-1) 전체 주문 목록(관리자)
-   public List<Map<String,Object>> selectOrdersList(Connection conn, int beginRow, int rowPerPage) throws Exception {
+   public List<Map<String, Object>> selectOrdersList(Connection conn, int beginRow, int rowPerPage) throws Exception {
       
-	   List<Map<String,Object>> list = new ArrayList<>(); // 다형성
+	  List<Map<String, Object>> list =new ArrayList<>();
       
-      String sql = " SELECT  o.order_no  ,\r\n"
+      String sql = " SELECT  o.order_no  ,"
+      		+ "				o.goods_no, \r\n"
         		+ "          o.order_quantity ,\r\n"
         		+ "          o.order_price ,\r\n"
+        		+"			 o.order_state , \r\n"
         		+"			 o.customer_id,\r\n"
         		+ "          o.order_address ,\r\n"
         		+ "          o.update_date ,\r\n"
@@ -95,48 +97,64 @@ public class OrdersDao {
         		+ "          g.goods_no ,\r\n"
         		+ "          g.goods_name ,\r\n"
         		+ "          g.goods_price ,\r\n"
-        		+ "          g.soldOut ,\r\n"
+        		+"			 g.update_date, \r\n"
+        		+"           g.create_date,\r\n"
+        		+ "          g.sold_out \r\n"
         		+ "       FROM orders o INNER JOIN goods g \r\n"
         		+ "       ON o.goods_no = g.goods_no \r\n"
-        		+ "       ORDER BY create_date DESC LIMIT ?, ?";
+        		+ "       ORDER BY o.create_date DESC LIMIT ?, ?";
        
       PreparedStatement stmt = null;
       ResultSet rs =null;       
       
-      System.out.println(rs + " : 105 rs");
-      
-      
-      Map<String,Object> orders = null;
+      Map<String,Object> map = null;
+
       try {
     	  
     	  stmt = conn.prepareStatement(sql);
     	  stmt.setInt(1, beginRow);
+    	  System.out.println("b : " + beginRow);
 		  stmt.setInt(2, rowPerPage);
+		  System.out.println("r : " + rowPerPage);
 		  rs = stmt.executeQuery();
 
 		System.out.println(rs + " : rs");
 		
 		while(rs.next()) {
-			orders = new HashMap<String,Object>();
-			orders.put("orderNo", rs.getInt("o.order_no"));
-			orders.put("goodsNo",rs.getInt(" g.goods_no"));
-			orders.put("goodsNo",rs.getInt(" g.goods_no"));
-			orders.put("goodsNo",rs.getInt(" g.goods_no"));
-			orders.put("goodsNo",rs.getInt(" g.goods_no"));
-			orders.put("goodsNo",rs.getInt(" g.goods_no"));
-			orders.put("goodsNo",rs.getInt(" g.goods_no"));
-			orders.put("goodsNo",rs.getInt(" g.goods_no"));
+			map = new HashMap<String,Object>();
+			map.put("orderNo", rs.getInt("o.order_no"));
+			map.put("goodsNo", rs.getInt("o.goods_no"));
+			map.put("customerId", rs.getString("o.customer_id"));
+			map.put("orderQuantity", rs.getString("o.order_quantity"));
+			map.put("orderPrice", rs.getInt("o.order_price"));
+			map.put("orderAddress", rs.getString("o.order_address"));
+			map.put("orderState", rs.getString("o.order_state"));
+			map.put("goodsName", rs.getString("g.goods_name"));
+			map.put("goodsPrice", rs.getInt("g.goods_price"));
+			map.put("updateDate", rs.getString("g.update_date"));
+			map.put("createDate", rs.getString("g.create_date"));
+			map.put("soldOut", rs.getString("g.sold_out"));
 			
 		
-			list.add(orders);			
+				
+		
+			list.add(map);
+			System.out.print(map + " : map");		
+			
+			System.out.println(list + "list");
+		}
+		
+			
+		
+		} finally {
+			if(rs!=null) {rs.close();}
+			
+			if(stmt!=null) {stmt.close();}
 		}
 			
-		} finally {
-			rs.close();
-			stmt.close();
-		}
-		return list;
-	}
+       
+      return list;
+   }
 			
 			
 			
@@ -149,7 +167,9 @@ public class OrdersDao {
 		stmt = conn.prepareStatement(sql); 
 		rs = stmt.executeQuery();
 		
-		
+		if(rs.next()) {
+			totalCount= rs.getInt("COUNT(*)"); 
+		}
 		if(rs != null) { 
 			rs.close();
 		}

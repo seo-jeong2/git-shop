@@ -5,6 +5,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
+    
 <%
 
 	if(session.getAttribute("user") == null ) {
@@ -21,7 +22,7 @@
 	final int rowPerPage = 10;
 	
 	OrdersService ordersService = new OrdersService();
-	List<Orders> list = new ArrayList<Orders>();
+	List<Map<String, Object>> list  = new ArrayList<>();
 	list = ordersService.getOrdersListByEmployee(rowPerPage, currentPage);
 
 	int lastPage = ordersService.getOrderListByPageLastPage(rowPerPage);	
@@ -55,8 +56,9 @@
 					<th>주문번호</th>
 					<th>상품번호</th>
 					<th>고객아이디</th>
+					<th>주문상품명</th>
 					<th>주문수량</th>
-					<th>상품가격</th>
+					<th>주문가격</th>
 					<th>주문주소</th>
 					<th>주문상태</th>
 					<th>등록일</th>
@@ -66,19 +68,20 @@
 				
 				<%
 				
-				for(Orders o  : list) {
+				for(Map<String, Object> m  : list) {
 				
 				%>
 					<tr>
-						<td><%=o.getOrderNo()%></td>
-						<td><%=o.getGoodsNo()%></td>
-						<td><%=o.getCustomerId()%></td>
-						<td><%=o.getOrderQuantity()%></td>
-						<td><%=o.getOrderPrice()%></td>
-						<td><%=o.getOrderAddress()%></td>
-						<td><%=o.getOrderState()%></td>
-						<td><%=o.getUpdateDate()%></td>
-						<td><%=o.getCreateDate()%></td>
+						<td><%=m.get("orderNo") %></td>
+						<td><%=m.get("goodsNo") %></td>
+						<td><%=m.get("customerId") %></td>
+						<td><%=m.get("goodsName") %></td>
+						<td><%=m.get("orderQuantity") %></td>
+						<td><%=m.get("goodsPrice") %></td>
+						<td><%=m.get("orderAddress") %></td>
+						<td><%=m.get("orderState") %></td>
+						<td><%=m.get("updateDate") %></td>
+						<td><%=m.get("createDate") %></td>
 					</tr>	
 				
 				<%

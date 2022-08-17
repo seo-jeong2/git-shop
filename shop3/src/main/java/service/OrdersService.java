@@ -99,8 +99,8 @@ public class OrdersService {
 	
 	
 	// 관리자의 고객주문확인
-	public ArrayList<Orders> getOrdersListByEmployee (int rowPerPage, int currentPage) {
-		ArrayList<Orders> list  = new ArrayList<Orders>();;
+	public List<Map<String, Object>> getOrdersListByEmployee (int rowPerPage, int currentPage) {
+		List<Map<String, Object>> list  = new ArrayList<>();
 		
 		Connection conn = null;
 		OrdersDao ordersDao = new OrdersDao();
@@ -112,7 +112,7 @@ public class OrdersService {
 			
 			System.out.println(ordersDao);
 			
-			list = ordersDao.selectOrdersList(conn, rowPerPage,currentPage);
+			list = ordersDao.selectOrdersList(conn, currentPage, rowPerPage);
 			
 			System.out.println(list);
 
