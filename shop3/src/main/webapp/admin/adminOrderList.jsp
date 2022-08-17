@@ -1,6 +1,7 @@
 <%@page import="vo.*"%>
 <%@page import="java.util.*"%>
 <%@page import="service.*"%>
+<%@page import="repository.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -55,7 +56,7 @@
 					<th>상품번호</th>
 					<th>고객아이디</th>
 					<th>주문수량</th>
-					<th>주문상품가격</th>
+					<th>상품가격</th>
 					<th>주문주소</th>
 					<th>주문상태</th>
 					<th>등록일</th>
@@ -76,8 +77,8 @@
 						<td><%=o.getOrderPrice()%></td>
 						<td><%=o.getOrderAddress()%></td>
 						<td><%=o.getOrderState()%></td>
-						<td><%=o.getCreateDate()%></td>
 						<td><%=o.getUpdateDate()%></td>
+						<td><%=o.getCreateDate()%></td>
 					</tr>	
 				
 				<%

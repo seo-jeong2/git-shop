@@ -13,18 +13,7 @@ public class GoodsService {
 	private GoodsImgDao goodsImgDao;
 	private GoodsDao goodsDao;	
 		
-	
-	/*
-	// 고객 상품리스트페이지를 호출하는 서비스
-	   public List<Map<String, Object>> getcustomerGoodsListByPage(int rowPerPage, int currentPage) {
-	      
-	       List<Map<String, Object>> list = null;
-	      
-	      // GoodsDao 호출
-	            
-	      return null;
-	   }
-	*/
+
 	
 	public int addGoods(Goods goods, GoodsImg goodsImg) {
 		int goodsNo = 0;
@@ -142,27 +131,18 @@ public class GoodsService {
 			}
 			return result;
 		}
-	public int getGoodsListLastPage(int rowPerPage) {
+	public int getLastPage(int rowPerPage) {
 		
 		Connection conn = null;
 		
 		try {
 			conn = new DBUtil().getConnection();
-			conn.setAutoCommit(false); //자동커밋방지
+			conn.setAutoCommit(false); 
 			 
-			// GoodsDao 객체생성
 			GoodsDao goodsDao = new GoodsDao(); 
-			
-			// lastPage 메서드호출
 			rowPerPage = goodsDao.lastPage(conn);
-			
-			//디버깅 
-			System.out.print(rowPerPage +"<-rowPerPage");
-			
-			if(rowPerPage ==0) {
-				throw new Exception();
-			}
-			
+			System.out.print(rowPerPage +" : rowPerPage");
+		
 			conn.commit();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -219,6 +199,6 @@ public class GoodsService {
 		return list;
 
 	}
-	
+
 	
 }

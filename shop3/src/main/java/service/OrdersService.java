@@ -54,7 +54,7 @@ public class OrdersService {
 	
 	
 	
-	//관리자의 고객주문확인의 페이징용
+	//관리자의 고객주문확인의 페이징
 	public int getOrderListByPageLastPage(int rowPerPage) {
 		Connection conn =null;
 		
@@ -66,7 +66,7 @@ public class OrdersService {
 			OrdersDao ordersDao = new OrdersDao();
 			rowPerPage = ordersDao.OrderslastPage(conn, rowPerPage);
 			
-			System.out.print(rowPerPage +" 마지막 rowPerPage");
+			System.out.print(rowPerPage +" rowPerPage");
 			
 			if(rowPerPage ==0 ) {
 				throw new Exception();
@@ -99,32 +99,27 @@ public class OrdersService {
 	
 	
 	// 관리자의 고객주문확인
-	public ArrayList<Orders> getOrdersListByEmployee (final int rowPerPage, int currentPage) {
+	public ArrayList<Orders> getOrdersListByEmployee (int rowPerPage, int currentPage) {
 		ArrayList<Orders> list  = new ArrayList<Orders>();;
 		
 		Connection conn = null;
-		int beginRow = 0;	
-		beginRow = (currentPage -1 ) * rowPerPage;
-	
+		OrdersDao ordersDao = new OrdersDao();
 		
 		try {
-			conn = new DBUtil().getConnection(); // 디비연동
-			conn.setAutoCommit(false); //자동커밋방지
+			conn = new DBUtil().getConnection(); 
+			conn.setAutoCommit(false); 
 			
-			OrdersDao ordersDao = new OrdersDao();
+			
 			System.out.println(ordersDao);
 			
-			list = ordersDao.selectOrdersList(conn, rowPerPage, currentPage);
+			list = ordersDao.selectOrdersList(conn, rowPerPage,currentPage);
 			
 			System.out.println(list);
-			
-			if(list ==null ) {
-				throw new Exception();
-			}
-		
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
 			try {
 				conn.rollback();
 			} catch (SQLException e1) {
@@ -157,7 +152,7 @@ public class OrdersService {
 			OrdersDao ordersDao = new OrdersDao();
 			rowPerPage = ordersDao.OrderslastPage(conn, rowPerPage);
 			
-			System.out.print(rowPerPage +"<-ordersService의 rowPerPage");
+			System.out.print(rowPerPage +" : rowPerPage");
 			
 			
 			if(rowPerPage ==0 ) {
@@ -192,7 +187,7 @@ public class OrdersService {
 	// 고객 주문확인
 	public List<Map<String, Object>> getOrdersListByCustomer (String customerId, final int rowPerPage, int currentPage) {
 		
-		List<Map<String, Object>> m = new ArrayList<>();;
+		List<Map<String, Object>> m = new ArrayList<>();
 		
 		Connection conn = null;
 		int beginRow = 0;	
@@ -203,7 +198,7 @@ public class OrdersService {
 			OrdersDao ordersDao = new OrdersDao();
 			
 			m = ordersDao.selectOrdersListByCustomer(conn, customerId, rowPerPage, beginRow);
-			System.out.println(m +"<-OrdersService의 m");
+			System.out.println(m +": m");
 			
 			if(m ==null ) {
 				throw new Exception();

@@ -15,25 +15,19 @@
 	return;
 } 		
 
-//페이징
-	int currentPage = 1;			
-	if(request.getParameter("currentPage") !=null) {
-		currentPage = Integer.parseInt(request.getParameter("currentPage"));
-	}
+	//페이징
+		int currentPage = 1;
+		if (request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		final int ROW_PER_PAGE = 10;
 		
-
-	int rowPerPage = 20;
-	if(request.getParameter("rowPerPage") !=null) {
-		rowPerPage = Integer.parseInt(request.getParameter("rowPerPage"));
-	}
+		GoodsService goodsService = new GoodsService();
+		List<Goods> list = new ArrayList<Goods>();
+		list = goodsService. getGoodsListByPage(ROW_PER_PAGE, currentPage);
+		System.out.println("상품목록보기");
 	
-
-	GoodsService goodsService = new GoodsService();
-	List<Goods> list = new ArrayList<Goods>(); 
-	list = goodsService.getGoodsListByPage(rowPerPage, currentPage);
-	System.out.println("상품목록보기");
-	
-	int lastPage = goodsService.getGoodsListLastPage(rowPerPage);
+	int lastPage = goodsService.getGoodsListLastPage(ROW_PER_PAGE );
 	
 
 	
@@ -75,7 +69,6 @@
 					<tr> 
 					<td><%=g.getGoodsNo()%></td>
 					<td><%=g.getGoodsName()%></td>
-					
 					<td><%=g.getGoodsPrice()%></td>
 					<td><%=g.getCreateDate()%></td>
 					<td><%=g.getSoldOut()%></td>
@@ -86,6 +79,7 @@
 			%>
 			</tbody>
 		</table>
+			
 			<%
 				if(currentPage > 1) {
 			%>	

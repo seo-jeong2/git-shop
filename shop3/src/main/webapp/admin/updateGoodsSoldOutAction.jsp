@@ -18,9 +18,9 @@
 	
 	if(result) {
 		response.sendRedirect(request.getContextPath() + "/admin/adminGoodsList.jsp");
-		System.out.println("성공");
+		System.out.println("active 변경 성공");
 	} else {
 		response.sendRedirect(request.getContextPath() + "/admin/adminGoodsList.?errorMsg=update Fail");
-		System.out.println("실패");
+		System.out.println("active 변경 실패");
 	}
 %>

@@ -46,7 +46,7 @@
 	</ul>
 	
 
-	<h2>사원 관리</h2>
+	<h1>사원 관리</h1>
 	<a href="<%=request.getContextPath()%>/addEmployee.jsp">사원등록</a>
 	
 	<body>	

@@ -3,9 +3,6 @@
     pageEncoding="UTF-8"%>
 <%
 
-	
-
-	
 	String id = request.getParameter("id");
 	String ckId =request.getParameter("ckId");
 

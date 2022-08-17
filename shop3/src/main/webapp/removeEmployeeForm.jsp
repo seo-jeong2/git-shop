@@ -6,7 +6,7 @@
       
 <%
 
-	if(session.getAttribute("user") == null) { // 로긴한 애가 아니면
+	if(session.getAttribute("user") == null) { // 로그인안하면
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 			
 		return;

@@ -81,13 +81,14 @@ public class OrdersDao {
    }
    
    // 5-1) 전체 주문 목록(관리자)
-   public ArrayList<Orders> selectOrdersList(Connection conn, int rowPerPage, int beginRow) throws Exception {
+   public List<Map<String,Object>> selectOrdersList(Connection conn, int beginRow, int rowPerPage) throws Exception {
       
-	   ArrayList<Orders> list = new ArrayList<Orders>(); // 다형성
+	   List<Map<String,Object>> list = new ArrayList<>(); // 다형성
       
       String sql = " SELECT  o.order_no  ,\r\n"
         		+ "          o.order_quantity ,\r\n"
         		+ "          o.order_price ,\r\n"
+        		+"			 o.customer_id,\r\n"
         		+ "          o.order_address ,\r\n"
         		+ "          o.update_date ,\r\n"
         		+ "          o.create_date ,\r\n"
@@ -102,11 +103,11 @@ public class OrdersDao {
       PreparedStatement stmt = null;
       ResultSet rs =null;       
       
-      System.out.println(rs + " : rs");
+      System.out.println(rs + " : 105 rs");
       
+      
+      Map<String,Object> orders = null;
       try {
-    	  
-    	  list = new ArrayList<Orders>();
     	  
     	  stmt = conn.prepareStatement(sql);
     	  stmt.setInt(1, beginRow);
@@ -116,19 +117,18 @@ public class OrdersDao {
 		System.out.println(rs + " : rs");
 		
 		while(rs.next()) {
-			Orders orders = new Orders();
-			orders.setOrderNo(rs.getInt("ordersNo"));
-			orders.setGoodsNo(rs.getInt("goodsNo"));
-			orders.setCustomerId(rs.getString("customerId"));
-			orders.setOrderQuantity(rs.getInt("orderQuantity"));
-			orders.setOrderPrice(rs.getInt("orderPrice"));
-			orders.setOrderAddress(rs.getString("orderAddress"));
-			orders.setOrderState(rs.getString("orderState"));
-			orders.setUpdateDate(rs.getString("updateDate"));
-			orders.setCreateDate(rs.getString("createDate"));
+			orders = new HashMap<String,Object>();
+			orders.put("orderNo", rs.getInt("o.order_no"));
+			orders.put("goodsNo",rs.getInt(" g.goods_no"));
+			orders.put("goodsNo",rs.getInt(" g.goods_no"));
+			orders.put("goodsNo",rs.getInt(" g.goods_no"));
+			orders.put("goodsNo",rs.getInt(" g.goods_no"));
+			orders.put("goodsNo",rs.getInt(" g.goods_no"));
+			orders.put("goodsNo",rs.getInt(" g.goods_no"));
+			orders.put("goodsNo",rs.getInt(" g.goods_no"));
+			
 		
-			
-			
+			list.add(orders);			
 		}
 			
 		} finally {
@@ -142,7 +142,7 @@ public class OrdersDao {
 			
    public int OrderslastPage(Connection conn, int rowPerPage) throws SQLException { 
 		int totalCount = 0;
-		String sql = "SELECT COUNT(*) FORM goods"; 
+		String sql = "SELECT COUNT(*) From goods"; 
 		PreparedStatement stmt = null;
 		ResultSet rs  = null;
 		

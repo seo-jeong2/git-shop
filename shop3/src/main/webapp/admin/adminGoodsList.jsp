@@ -21,13 +21,13 @@ if (request.getParameter("currentPage") != null) {
 	currentPage = Integer.parseInt(request.getParameter("currentPage"));
 }
 
-final int ROW_PER_PAGE = 10;
+final int rowPerPage = 10;
 
 GoodsService goodsService = new GoodsService();
 List<Goods> list = new ArrayList<Goods>();
-list = goodsService.getGoodsListByPage(ROW_PER_PAGE, currentPage);
+list = goodsService.getGoodsListByPage(rowPerPage, currentPage);
 
-int lastPage = goodsService.getGoodsListLastPage(ROW_PER_PAGE);
+int lastPage = goodsService.getLastPage(rowPerPage);
 
 //상품없을시 처음으로돌아가기
 if(list == null) {

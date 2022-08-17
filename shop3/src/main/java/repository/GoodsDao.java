@@ -54,15 +54,13 @@ public class GoodsDao {
 	
 	
 	public int insertGoods(Connection conn, Goods goods) throws Exception {
-		// row가 아니라 방금 입력한 goods_no(value)를 return -> jdbc 메소드 이용
+		
 		int goodsNo = 0;
 		String sql = "insert into goods(goods_name, goods_price, sold_out, update_date, create_date)"
 				+ " values (?, ?, ?, now(), now())";
 		
 		PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-		// RETURN_GENERATED_KEYS == 1 --> 두 번의 쿼리 실행
-		// 1) insert 
-		// 2) select last_ai_key from table
+		
 		
 		stmt.setString(1, goods.getGoodsName());
 		stmt.setInt(2, goods.getGoodsPrice());
@@ -188,6 +186,8 @@ public class GoodsDao {
 		return list;
 	}
 	
+	
+	
 	public int lastPage(Connection conn) throws SQLException { 
 		int totalCount = 0;
 		String sql = "SELECT COUNT(*) From goods"; 
@@ -196,6 +196,10 @@ public class GoodsDao {
 		
 		stmt = conn.prepareStatement(sql); 
 		rs = stmt.executeQuery();
+		
+		if(rs.next()) {
+			totalCount= rs.getInt("count(*)");
+		}
 		
 		
 		if(rs != null) { 
