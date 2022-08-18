@@ -27,7 +27,7 @@
 		list = goodsService. getGoodsListByPage(ROW_PER_PAGE, currentPage);
 		System.out.println("상품목록보기");
 	
-	int lastPage = goodsService.getGoodsListLastPage(ROW_PER_PAGE );
+	int lastPage = goodsService.getLastPage(ROW_PER_PAGE );
 	
 
 	

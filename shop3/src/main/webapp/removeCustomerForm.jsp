@@ -30,6 +30,8 @@
 		</tr>
 	</table>
 	<button type="submit"> 탈퇴 </button>
+	<button type="submit"> <a href="<%=request.getContextPath()%>/index.jsp">처음으로</a>
+	 </button>
 </form>
 </body>
 </html>

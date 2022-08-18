@@ -4,10 +4,6 @@ import java.sql.*;
 import java.util.*;
 
 
-
-
-
-
 public class OrdersDao {
    // 5-2) 주문상세보기
    public Map<String, Object> selectOrdersOne(Connection conn, int ordersNo) throws Exception {
@@ -44,7 +40,6 @@ public class OrdersDao {
 			stmt.setInt(1, ordersNo);
 			rs =stmt.executeQuery();
 
-			System.out.println(rs + " : rs");
 			
 			while(rs.next()) {
 				map = new HashMap<String, Object>();	
@@ -113,9 +108,8 @@ public class OrdersDao {
     	  
     	  stmt = conn.prepareStatement(sql);
     	  stmt.setInt(1, beginRow);
-    	  System.out.println("b : " + beginRow);
 		  stmt.setInt(2, rowPerPage);
-		  System.out.println("r : " + rowPerPage);
+		
 		  rs = stmt.executeQuery();
 
 		System.out.println(rs + " : rs");
